@@ -19,9 +19,4 @@ class Persona:
     def __repr__(self):
         return f"{self.__class__.__name__}(nombre={self.nombre}, email={self.email})"
 
-persona1 = Persona("Juan Pérez", "juan.perez@gmail.com")
-
-print(persona1.nombre)  # Salida: Persona(nombre=Juan Pérez,
-print(persona1.email)   # Salida: Persona(email= juan.perez@gmail.com
-print(persona1)        # Salida: Persona(nombre=Juan Pérez,
 

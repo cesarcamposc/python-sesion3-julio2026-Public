@@ -50,8 +50,41 @@ class Academia:
             print("No hay estudiantes inscritos en la academia.")
             return []
 
-        ordenados = sorted(
+        """ordenados = sorted(
             self.estudiantes, 
             key=lambda e: e.promedio_general(), 
             reverse=True
-        )
+        )"""
+
+        pendientes = self.estudiantes.copy()  # Copia de la lista de estudiantes para no modificar la original.
+        ranking = []
+        mejor = pendientes[0]  # Inicializar el mejor estudiante con el primero de la lista.
+        while pendientes:
+            for estudiante in pendientes:
+                if estudiante.promedio_general() > mejor.promedio_general():
+                    mejor = estudiante
+            ranking.append(mejor)
+            pendientes.remove(mejor)
+            if pendientes:
+                mejor = pendientes[0]
+
+        return ranking
+
+    def _guardar_estudiantes_json(self, filename):
+        """
+        Guarda la información de los estudiantes en un archivo JSON.
+        """
+        import json
+
+        data = []
+        for estudiante in self.estudiantes:
+            estudiante_data = {
+                "nombre": estudiante.nombre,
+                "email": estudiante.email,
+                "matricula": estudiante.matricula,
+                "notas": estudiante.notas
+            }
+            data.append(estudiante_data)
+
+        with open(filename, 'w') as f:
+            json.dump(data, f, indent=4)
